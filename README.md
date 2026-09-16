@@ -1,181 +1,347 @@
-# Secure Traffic Infraction Management Web Application
+# RFID Traffic Infraction Management System
 
-A secure web application developed as part of a university project for managing traffic infractions and their payment.
+A PHP/MySQL web application developed as part of a university project for managing traffic infractions associated with RFID tags.
 
-Traffic infractions are associated with users through **RFID identification**. Authenticated users can access their account, consult their infractions, and manage the payment of outstanding fines.
+The application allows users to authenticate, consult their infractions, and manage payments. The project also includes security mechanisms designed to protect against common web vulnerabilities such as **SQL injection, Cross-Site Scripting (XSS), and Cross-Site Request Forgery (CSRF)**.
 
-The project focuses particularly on **web application security**, including protection against SQL injection, Cross-Site Scripting (XSS), and Cross-Site Request Forgery (CSRF).
+---
 
 ## Features
 
-### User Authentication
-
-* User registration and login
+* User registration and authentication
 * Session-based authentication
-* Password hashing
+* RFID-based identification of users and infractions
+* Consultation of traffic infractions
+* Infraction status and payment management
 * Account management
-* Account deletion
-* Logout functionality
+* Protection against SQL injection
+* XSS protection
+* CSRF protection
+* Security demonstration page for testing CSRF protection
 
-### RFID-based Identification
-
-Each user is associated with an RFID identifier.
-
-Traffic infractions can therefore be associated with a specific user through their RFID information.
-
-### Infraction Management
-
-Authenticated users can:
-
-* View their traffic infractions
-* Consult the details of an infraction
-* View the amount to pay
-* Check the payment status
-* Access the payment interface for unpaid infractions
-
-### Payment
-
-The application provides a payment workflow for traffic infractions.
-
-The payment functionality is implemented as part of the project for demonstration purposes.
-
-## Security
-
-Security is one of the main objectives of this project.
-
-### SQL Injection Protection
-
-Database operations use parameterized queries / prepared statements where user input is involved, preventing malicious input from being interpreted as part of an SQL query.
-
-### Cross-Site Scripting (XSS) Protection
-
-User-controlled data is properly handled and escaped before being displayed in HTML pages in order to prevent injected JavaScript from being executed in the user's browser.
-
-### Cross-Site Request Forgery (CSRF) Protection
-
-State-changing requests are protected using **CSRF tokens**.
-
-The application verifies the token received from the client before processing protected requests, preventing unauthorized websites from performing actions on behalf of an authenticated user.
-
-A CSRF attack demonstration is also included in the project to illustrate the vulnerability and its mitigation.
-
-### Password Security
-
-User passwords are not stored directly in plaintext. Password hashing is used to protect stored credentials.
-
-### Session Management
-
-Authenticated users are identified using PHP sessions, allowing access to protected pages to be restricted to logged-in users.
+---
 
 ## Technologies
 
 * **PHP**
 * **MySQL**
-* **HTML5**
-* **CSS3**
-* **JavaScript**
-* **WAMP**
+* **HTML / CSS / JavaScript**
 * **Apache**
-* **PHP Sessions**
-* **MySQLi**
-* **OpenSSL**
+* **WAMP**
+* **phpMyAdmin**
 
-## Running the Application
-
-The application was developed to run locally using **WAMP**.
-
-### Requirements
-
-* WAMP
-* Apache
-* MySQL
-* PHP
-* A web browser
-
-### Installation
-
-1. Install and start WAMP.
-
-2. Copy the project folder into the WAMP `www` directory.
-
-Example:
-
-```text
-C:\wamp64\www\Web_app\
-```
-
-3. Start the following WAMP services:
-
-```text
-Apache
-MySQL
-```
-
-4. Import the project's SQL database using **phpMyAdmin**.
-
-5. Make sure the database connection configuration matches your local MySQL configuration.
-
-6. Open the application in your browser:
-
-```text
-http://localhost/Web_app/
-```
-
-## Application Workflow
-
-```text
-                 ┌─────────────────┐
-                 │      User       │
-                 └────────┬────────┘
-                          │
-                          ▼
-                 ┌─────────────────┐
-                 │ Authentication  │
-                 │   + RFID ID     │
-                 └────────┬────────┘
-                          │
-                          ▼
-                 ┌─────────────────┐
-                 │ User Dashboard  │
-                 └────────┬────────┘
-                          │
-                          ▼
-                 ┌─────────────────┐
-                 │   Infractions   │
-                 └────────┬────────┘
-                          │
-                          ▼
-                 ┌─────────────────┐
-                 │     Payment     │
-                 └─────────────────┘
-
-        Security layer:
-        ─────────────────────────────
-        SQL Injection Protection
-        XSS Protection
-        CSRF Protection
-        Password Hashing
-        Session Authentication
-```
+---
 
 ## Project Structure
 
-The application is intentionally kept as a self-contained WAMP project so that it can be deployed locally by copying the project folder into the server's `www` directory.
+```text
+rfid-traffic-infractions/
+│
+├── database/
+│   └── schema.sql
+│
+├── security-demo/
+│   └── csrf_attack_demo.html
+│
+├── assets/
+│   ├── css/
+│   ├── images/
+│   └── js/
+│
+├── index.php
+├── login.php
+├── signup.php
+├── logout.php
+├── infractions.php
+├── payment.php
+├── process_payment.php
+├── settings.php
+├── delete_account.php
+└── ...
+```
 
-## Security Demonstration
+The exact PHP files may vary depending on the application version.
 
-The project includes a CSRF attack demonstration used to show how an unauthorized request can be prevented when CSRF protection is correctly implemented.
+---
 
-This demonstration is included for educational and security-testing purposes.
+# Running the Project with WAMP
 
-## Academic Context
+## 1. Install WAMP
 
-This project was developed as part of a university course project focused on **secure web application development**.
+Install **WampServer** on Windows.
 
-The main objectives were to develop a functional web application while applying fundamental web security principles and protecting sensitive user operations.
+The project requires:
 
-## Disclaimer
+* Apache
+* MySQL
+* PHP
+* phpMyAdmin
 
-This project was developed for educational purposes and is intended to be run in a local development environment.
+After installation, start WAMP and make sure the WAMP icon indicates that the services are running correctly.
 
-The payment functionality is intended as a demonstration of the application's payment workflow and should not be considered a production payment system.
+---
+
+## 2. Copy the Project into the WAMP Directory
+
+Copy or clone the repository into the WAMP `www` directory.
+
+For example:
+
+```text
+C:\wamp64\www\rfid-traffic-infractions\
+```
+
+The project should therefore look like:
+
+```text
+C:\wamp64\www\rfid-traffic-infractions\
+│
+├── index.php
+├── login.php
+├── signup.php
+├── database/
+├── security-demo/
+└── ...
+```
+
+Apache serves projects located inside the `www` directory.
+
+---
+
+## 3. Start Apache and MySQL
+
+Open WAMP and make sure:
+
+* **Apache** is running
+* **MySQL** is running
+
+Then open the application in a browser:
+
+```text
+http://localhost/rfid-traffic-infractions/
+```
+
+---
+
+# Database Setup
+
+The database schema is provided in:
+
+```text
+database/schema.sql
+```
+
+This file can be imported using phpMyAdmin.
+
+## 1. Open phpMyAdmin
+
+Go to:
+
+```text
+http://localhost/phpmyadmin/
+```
+
+## 2. Import the Database
+
+In phpMyAdmin:
+
+1. Open the **Import** tab.
+2. Select:
+
+```text
+database/schema.sql
+```
+
+3. Click **Import** / **Go**.
+
+The SQL file creates the database and the tables required by the application.
+
+If the SQL file contains:
+
+```sql
+CREATE DATABASE IF NOT EXISTS narsa_login;
+USE narsa_login;
+```
+
+the database will be created and selected automatically.
+
+---
+
+## 3. Verify the Database
+
+After importing the SQL file, verify that the database appears in phpMyAdmin.
+
+The project uses tables for information such as:
+
+* Users
+* RFID tags
+* Traffic infractions
+* Infraction status
+* Payment information
+
+The database should be available before using the application.
+
+---
+
+# Database Configuration
+
+The PHP application must use the same database configuration as the local WAMP installation.
+
+For a default local WAMP/MySQL installation, the configuration is commonly similar to:
+
+```text
+Host:     localhost
+Port:     3306
+Database: narsa_login
+Username: root
+Password: 
+```
+
+The password may be different depending on the local WAMP configuration.
+
+
+---
+
+# Using the Application
+
+Once Apache and MySQL are running and the database has been imported:
+
+1. Open:
+
+```text
+http://localhost/rfid-traffic-infractions/
+```
+
+2. Create an account or use one of the demo accounts provided in the local database.
+3. Log in.
+4. Access the application's available features.
+5. Consult the user's traffic infractions.
+6. Test the payment workflow where applicable.
+
+---
+
+# Security Demonstration
+
+The repository contains a small CSRF demonstration in:
+
+```text
+security-demo/csrf_attack_demo.html
+```
+
+The purpose of this page is to simulate a forged request against the application and verify that the server correctly validates the CSRF token.
+
+## Testing CSRF Protection
+
+### 1. Start the application
+
+Make sure Apache and MySQL are running.
+
+Open:
+
+```text
+http://localhost/rfid-traffic-infractions/
+```
+
+### 2. Authenticate
+
+Log into the application first.
+
+This creates the authenticated session required for the CSRF test.
+
+### 3. Open the CSRF demonstration
+
+Open:
+
+```text
+http://localhost/rfid-traffic-infractions/security-demo/csrf_attack_demo.html
+```
+
+The page attempts to perform a request without providing the legitimate CSRF token generated by the application.
+
+### 4. Expected result
+
+The server should reject the request.
+
+For example:
+
+```text
+CSRF token is invalid
+```
+
+This indicates that the application detected that the request did not contain the expected CSRF token and refused to process it.
+
+### Security Test Flow
+
+```text
+CSRF Attack Demo
+       │
+       │ Forged request
+       ▼
+PHP Application
+       │
+       │ CSRF token validation
+       ▼
+Token missing / invalid
+       │
+       ▼
+Request rejected
+```
+
+This demonstration is included for educational purposes to show how the application's CSRF protection works.
+
+---
+
+# Security
+
+The application implements protections against several common web security vulnerabilities.
+
+### SQL Injection
+
+Database operations are protected against SQL injection through appropriate handling of database queries and user input.
+
+### Cross-Site Scripting (XSS)
+
+User-controlled input is handled so that malicious HTML/JavaScript cannot be directly executed as application content.
+
+### Cross-Site Request Forgery (CSRF)
+
+State-changing requests require a valid CSRF token generated by the application.
+
+The included CSRF demonstration can be used to verify that requests containing an invalid or missing token are rejected.
+
+---
+
+# Local Development
+
+The project is designed to run locally using WAMP.
+
+Typical setup:
+
+```text
+Browser
+   │
+   ▼
+Apache / WAMP
+   │
+   ▼
+PHP Application
+   │
+   ▼
+MySQL
+```
+
+The application does not require a separate Node.js server or external backend service to run.
+
+---
+
+# Educational Context
+
+This project was developed as part of a university web security/application development project.
+
+It demonstrates the development of a PHP/MySQL web application together with practical protections against common web vulnerabilities.
+
+The security demonstration files are provided for educational and testing purposes only.
+
+---
+
+
